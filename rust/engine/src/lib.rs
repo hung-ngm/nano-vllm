@@ -6,3 +6,4 @@
 pub mod config;
 pub mod pyval;
 pub mod sampling;
+pub mod sequence;
