@@ -5,6 +5,7 @@
 
 pub mod block;
 pub mod config;
+pub mod model;
 pub mod pyval;
 pub mod sampling;
 pub mod scheduler;
