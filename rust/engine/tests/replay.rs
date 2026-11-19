@@ -6,6 +6,7 @@ use std::path::{Path, PathBuf};
 use nanovllm_engine::config::Config;
 use nanovllm_engine::pyval::{self, PyVal};
 use nanovllm_engine::sampling::SamplingParams;
+use nanovllm_engine::sequence::{self, Sequence};
 use serde_json::Value;
 
 fn repo() -> PathBuf {
@@ -39,6 +40,30 @@ fn check_result(id: &str, actual: Result<PyVal, String>, expected: &Value) {
     }
 }
 
+fn check_state(id: &str, actual: &PyVal, expected: &Value) {
+    let want = pyval::decode(expected);
+    if actual != &want {
+        panic!("{id} state\n  got {actual:?}\n  expected {want:?}");
+    }
+}
+
+fn opt_i64(value: Option<&PyVal>) -> Option<i64> {
+    match value {
+        None | Some(PyVal::Null) => None,
+        Some(other) => Some(sequence::as_i64(other).expect("index")),
+    }
+}
+
+fn i64s(value: &PyVal) -> Vec<i64> {
+    let PyVal::List(items) = value else {
+        panic!("expected a list, got {value:?}");
+    };
+    items
+        .iter()
+        .map(|v| sequence::as_i64(v).expect("int"))
+        .collect()
+}
+
 #[test]
 fn sampling_params_matches_python() {
     for case in load("sampling_params.jsonl") {
@@ -59,4 +84,90 @@ fn config_matches_python() {
         let actual = Config::try_load(&root, model, &args).map(|config| config.snapshot());
         check_result(id, actual, &case["result"]);
     }
+}
+
+#[test]
+fn sequence_matches_python() {
+    for case in load("sequence.jsonl") {
+        let id = case["id"].as_str().unwrap();
+        Sequence::reset_ids();
+        Sequence::set_block_size(case["block_size"].as_u64().unwrap());
+        let mut seq: Option<Sequence> = None;
+        for (n, step_json) in case["steps"].as_array().unwrap().iter().enumerate() {
+            let step = pyval::decode(&step_json["step"]);
+            let op = step
+                .get("op")
+                .and_then(PyVal::as_string)
+                .unwrap()
+                .to_string();
+            let label = format!("{id}#{n} {op}");
+            let actual = match op.as_str() {
+                "new" => {
+                    let tokens = i64s(step.get("token_ids").unwrap());
+                    let sampling = SamplingParams::try_new(
+                        step.get("sampling").unwrap_or(&PyVal::Map(vec![])),
+                    );
+                    match sampling.and_then(|params| Sequence::try_new(&tokens, params)) {
+                        Ok(created) => {
+                            seq = Some(created);
+                            Ok(PyVal::Null)
+                        }
+                        Err(err) => Err(err),
+                    }
+                }
+                "append" => {
+                    seq.as_mut()
+                        .unwrap()
+                        .append_token(opt_i64(step.get("token_id")).unwrap());
+                    Ok(PyVal::Null)
+                }
+                "getitem" => seq
+                    .as_ref()
+                    .unwrap()
+                    .get(opt_i64(step.get("index")).unwrap())
+                    .map(py_i64),
+                "slice" => seq
+                    .as_ref()
+                    .unwrap()
+                    .slice(
+                        opt_i64(step.get("start")),
+                        opt_i64(step.get("stop")),
+                        opt_i64(step.get("step")).unwrap_or(1),
+                    )
+                    .map(|xs| pyval::list_i64(&xs)),
+                "block" => seq
+                    .as_ref()
+                    .unwrap()
+                    .block(opt_i64(step.get("index")).unwrap())
+                    .map(|xs| pyval::list_i64(&xs)),
+                "getstate" => Ok(seq.as_ref().unwrap().getstate()),
+                "set_prefill" => {
+                    seq.as_mut().unwrap().is_prefill =
+                        matches!(step.get("value"), Some(PyVal::Bool(true)));
+                    Ok(PyVal::Null)
+                }
+                "setstate" => seq
+                    .as_mut()
+                    .unwrap()
+                    .setstate(step.get("state").unwrap())
+                    .map(|()| PyVal::Null),
+                "set_status" => seq
+                    .as_mut()
+                    .unwrap()
+                    .set_status(step.get("status").and_then(PyVal::as_string).unwrap())
+                    .map(|()| PyVal::Null),
+                other => panic!("unknown sequence op {other}"),
+            };
+            check_result(&label, actual, &step_json["result"]);
+            if let Some(seq) = &seq {
+                if !step_json["state"].is_null() {
+                    check_state(&label, &seq.snapshot(), &step_json["state"]);
+                }
+            }
+        }
+    }
+}
+
+fn py_i64(value: i64) -> PyVal {
+    PyVal::Int(i128::from(value))
 }
