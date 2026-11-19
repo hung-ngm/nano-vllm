@@ -1,0 +1,9 @@
+[package]
+name = "nanovllm-engine"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "CPU engine of nano-vllm, checked against recorded Python behavior"
+
+[dependencies]
+serde_json = "1"
