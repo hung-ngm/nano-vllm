@@ -1,0 +1,139 @@
+{
+  "schema": "rust-anything/bridge@1",
+  "root": "/workspace",
+  "unit": "nanovllm/layers/",
+  "language": "python",
+  "kind": "pyo3",
+  "crate_name": "layers-rs",
+  "exports": [
+    {
+      "name": "divide",
+      "file": "nanovllm/layers/linear.py",
+      "line": 7,
+      "params": [
+        {
+          "name": "numerator",
+          "ts_type": "number",
+          "optional": false,
+          "rest": false
+        },
+        {
+          "name": "denominator",
+          "ts_type": "number",
+          "optional": false,
+          "rest": false
+        }
+      ],
+      "returns": "unknown",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    }
+  ],
+  "classes": [],
+  "js_only": [
+    {
+      "name": "SiluAndMul",
+      "file": "nanovllm/layers/activation.py",
+      "line": 6,
+      "reason": "class: `@torch.compile` method `forward`, inherits from nn.Module"
+    },
+    {
+      "name": "store_kvcache_kernel",
+      "file": "nanovllm/layers/attention.py",
+      "line": 11,
+      "reason": "decorated with `@triton.jit`"
+    },
+    {
+      "name": "store_kvcache",
+      "file": "nanovllm/layers/attention.py",
+      "line": 33,
+      "reason": "Triton kernel; this machine has no GPU, so the kernel cannot be recorded"
+    },
+    {
+      "name": "Attention",
+      "file": "nanovllm/layers/attention.py",
+      "line": 43,
+      "reason": "class: inherits from nn.Module, public attribute `head_dim`, public attribute `k_cache`, public attribute `num_heads`, public attribute `num_kv_heads`, public attribute `scale`, public attribute `v_cache`"
+    },
+    {
+      "name": "VocabParallelEmbedding",
+      "file": "nanovllm/layers/embed_head.py",
+      "line": 9,
+      "reason": "class: inherits from nn.Module, public attribute `num_embeddings_per_partition`, public attribute `num_embeddings`, public attribute `tp_rank`, public attribute `tp_size`, public attribute `vocab_end_idx`, public attribute `vocab_start_idx`, public attribute `weight`"
+    },
+    {
+      "name": "ParallelLMHead",
+      "file": "nanovllm/layers/embed_head.py",
+      "line": 45,
+      "reason": "class: inherits from VocabParallelEmbedding"
+    },
+    {
+      "name": "RMSNorm",
+      "file": "nanovllm/layers/layernorm.py",
+      "line": 5,
+      "reason": "class: `@torch.compile` method `add_rms_forward`, `@torch.compile` method `rms_forward`, inherits from nn.Module, public attribute `eps`, public attribute `weight`"
+    },
+    {
+      "name": "LinearBase",
+      "file": "nanovllm/layers/linear.py",
+      "line": 12,
+      "reason": "class: inherits from nn.Module, public attribute `bias`, public attribute `tp_dim`, public attribute `tp_rank`, public attribute `tp_size`, public attribute `weight`"
+    },
+    {
+      "name": "ReplicatedLinear",
+      "file": "nanovllm/layers/linear.py",
+      "line": 37,
+      "reason": "class: inherits from LinearBase"
+    },
+    {
+      "name": "ColumnParallelLinear",
+      "file": "nanovllm/layers/linear.py",
+      "line": 54,
+      "reason": "class: inherits from LinearBase"
+    },
+    {
+      "name": "MergedColumnParallelLinear",
+      "file": "nanovllm/layers/linear.py",
+      "line": 76,
+      "reason": "class: inherits from ColumnParallelLinear, public attribute `output_sizes`"
+    },
+    {
+      "name": "QKVParallelLinear",
+      "file": "nanovllm/layers/linear.py",
+      "line": 96,
+      "reason": "class: inherits from ColumnParallelLinear, public attribute `head_size`, public attribute `num_heads`, public attribute `num_kv_heads`"
+    },
+    {
+      "name": "RowParallelLinear",
+      "file": "nanovllm/layers/linear.py",
+      "line": 131,
+      "reason": "class: inherits from LinearBase"
+    },
+    {
+      "name": "apply_rotary_emb",
+      "file": "nanovllm/layers/rotary_embedding.py",
+      "line": 6,
+      "reason": "torch.Tensor data is absent from the recorded encoding, so a match would not check the values"
+    },
+    {
+      "name": "get_rope",
+      "file": "nanovllm/layers/rotary_embedding.py",
+      "line": 52,
+      "reason": "returns an nn.Module whose cos/sin buffer is absent from the recorded encoding"
+    },
+    {
+      "name": "RotaryEmbedding",
+      "file": "nanovllm/layers/rotary_embedding.py",
+      "line": 17,
+      "reason": "class: `@torch.compile` method `forward`, inherits from nn.Module, public attribute `head_size`"
+    },
+    {
+      "name": "Sampler",
+      "file": "nanovllm/layers/sampler.py",
+      "line": 5,
+      "reason": "class: `@torch.compile` method `forward`, inherits from nn.Module"
+    }
+  ]
+}

@@ -1,0 +1,215 @@
+{"fn": "divide", "args": [-2.5, {"$num": "-Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [-1.0, 1.0], "ok": {"$float": "-1.0"}}
+{"fn": "divide", "args": [9007199254740992.0, 100.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [-1, 1000], "error": "AssertionError: "}
+{"fn": "divide", "args": [{"$num": "Infinity"}, {"$num": "Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [2.0, {"$num": "-0"}], "error": "ZeroDivisionError: float modulo"}
+{"fn": "divide", "args": [{"$num": "Infinity"}, 1.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [-1, {"$num": "Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [2147483648.0, 42.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [{"$num": "-0"}, 1.0], "ok": {"$num": "-0"}}
+{"fn": "divide", "args": [{"$num": "NaN"}, {"$num": "-Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [{"$num": "NaN"}, 10], "error": "AssertionError: "}
+{"fn": "divide", "args": [-1.0, -2.5], "error": "AssertionError: "}
+{"fn": "divide", "args": [0.0, 42.0], "ok": {"$float": "0.0"}}
+{"fn": "divide", "args": [1000.0, {"$num": "-0"}], "error": "ZeroDivisionError: float modulo"}
+{"fn": "divide", "args": [1, {"$num": "Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [2147483648.0, {"$num": "-Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [{"$num": "-Infinity"}, 42.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [{"$num": "-Infinity"}, {"$num": "-Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [3, -2.5], "error": "AssertionError: "}
+{"fn": "divide", "args": [{"$num": "Infinity"}, 2147483648.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [-2.5, 10.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [3.0, 10.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [1000000, 9007199254740992.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [42.0, {"$num": "NaN"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [{"$num": "-Infinity"}, 10.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [0.5, 2147483648.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [1000000, 0.5], "ok": {"$float": "2000000.0"}}
+{"fn": "divide", "args": [42.0, -1.0], "ok": {"$float": "-42.0"}}
+{"fn": "divide", "args": [{"$num": "NaN"}, {"$num": "Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [0.5, -1.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [{"$num": "Infinity"}, -1], "error": "AssertionError: "}
+{"fn": "divide", "args": [2147483648.0, 0.0], "error": "ZeroDivisionError: float modulo"}
+{"fn": "divide", "args": [2.0, {"$num": "NaN"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [1000.0, 1000.0], "ok": {"$float": "1.0"}}
+{"fn": "divide", "args": [{"$num": "NaN"}, {"$num": "-0"}], "error": "ZeroDivisionError: float modulo"}
+{"fn": "divide", "args": [1000.0, 100.0], "ok": {"$float": "10.0"}}
+{"fn": "divide", "args": [-2.5, {"$num": "-0"}], "error": "ZeroDivisionError: float modulo"}
+{"fn": "divide", "args": [{"$num": "Infinity"}, {"$num": "-Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [-2.5, 9007199254740992.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [10.0, {"$num": "Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [{"$num": "NaN"}, 1.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [2.0, 100.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [1000000, 2147483648], "error": "AssertionError: "}
+{"fn": "divide", "args": [1000.0, {"$num": "NaN"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [0.5, 9007199254740992.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [{"$num": "-Infinity"}, 2147483648.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [10, 0], "error": "ZeroDivisionError: integer modulo by zero"}
+{"fn": "divide", "args": [{"$num": "Infinity"}, -2.5], "error": "AssertionError: "}
+{"fn": "divide", "args": [{"$num": "-0"}, -1.0], "ok": {"$float": "0.0"}}
+{"fn": "divide", "args": [1.0, 0.0], "error": "ZeroDivisionError: float modulo"}
+{"fn": "divide", "args": [1, 100], "error": "AssertionError: "}
+{"fn": "divide", "args": [0.5, -2.5], "error": "AssertionError: "}
+{"fn": "divide", "args": [3.0, 1.0], "ok": {"$float": "3.0"}}
+{"fn": "divide", "args": [{"$num": "-Infinity"}, {"$num": "Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [1, 0.5], "ok": {"$float": "2.0"}}
+{"fn": "divide", "args": [3.0, {"$num": "-0"}], "error": "ZeroDivisionError: float modulo"}
+{"fn": "divide", "args": [1000.0, 2.0], "ok": {"$float": "500.0"}}
+{"fn": "divide", "args": [-1.0, 0.5], "ok": {"$float": "-2.0"}}
+{"fn": "divide", "args": [{"$num": "-Infinity"}, {"$num": "NaN"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [3.0, {"$num": "Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [10.0, 42.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [10.0, 9007199254740992.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [9007199254740992.0, -1], "ok": {"$float": "-9007199254740992.0"}}
+{"fn": "divide", "args": [100.0, {"$num": "NaN"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [0.5, 42.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [100.0, 0.0], "error": "ZeroDivisionError: float modulo"}
+{"fn": "divide", "args": [{"$num": "-0"}, 1000], "ok": {"$num": "-0"}}
+{"fn": "divide", "args": [{"$num": "Infinity"}, 100.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [100.0, 42.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [2147483648.0, 2.0], "ok": {"$float": "1073741824.0"}}
+{"fn": "divide", "args": [3, 3], "ok": 1}
+{"fn": "divide", "args": [100.0, {"$num": "-Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [2147483648.0, 3.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [1.0, -2.5], "error": "AssertionError: "}
+{"fn": "divide", "args": [{"$num": "-Infinity"}, -2.5], "error": "AssertionError: "}
+{"fn": "divide", "args": [{"$num": "-Infinity"}, 3.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [0.0, -1.0], "ok": {"$num": "-0"}}
+{"fn": "divide", "args": [10.0, 100.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [10, 0.5], "ok": {"$float": "20.0"}}
+{"fn": "divide", "args": [{"$num": "Infinity"}, 10.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [1000.0, -2.5], "ok": {"$float": "-400.0"}}
+{"fn": "divide", "args": [{"$num": "Infinity"}, 1000.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [2147483648, 2147483648], "ok": 1}
+{"fn": "divide", "args": [10.0, {"$num": "NaN"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [{"$num": "NaN"}, -1.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [1000000.0, 3.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [3, 2147483648], "error": "AssertionError: "}
+{"fn": "divide", "args": [2147483648.0, 1.0], "ok": {"$float": "2147483648.0"}}
+{"fn": "divide", "args": [2.0, 1.0], "ok": {"$float": "2.0"}}
+{"fn": "divide", "args": [0.5, 3.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [1000000, 1000000], "ok": 1}
+{"fn": "divide", "args": [1.0, {"$num": "-0"}], "error": "ZeroDivisionError: float modulo"}
+{"fn": "divide", "args": [{"$num": "Infinity"}, 9007199254740992.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [100.0, {"$num": "Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [1000, 10], "ok": 100}
+{"fn": "divide", "args": [-1.0, {"$num": "-0"}], "error": "ZeroDivisionError: float modulo"}
+{"fn": "divide", "args": [{"$num": "-Infinity"}, 1.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [1000000.0, 42.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [0.5, 1000000], "error": "AssertionError: "}
+{"fn": "divide", "args": [100.0, -2.5], "ok": {"$float": "-40.0"}}
+{"fn": "divide", "args": [0.0, 1000.0], "ok": {"$float": "0.0"}}
+{"fn": "divide", "args": [-2.5, -1.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [9007199254740992.0, {"$num": "-Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [{"$num": "NaN"}, 42.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [100.0, 9007199254740992.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [0.0, 2147483648.0], "ok": {"$float": "0.0"}}
+{"fn": "divide", "args": [9007199254740992.0, 1000000], "error": "AssertionError: "}
+{"fn": "divide", "args": [2.0, 42.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [100.0, 2.0], "ok": {"$float": "50.0"}}
+{"fn": "divide", "args": [2147483648.0, 100.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [3, 2], "error": "AssertionError: "}
+{"fn": "divide", "args": [-2.5, 1000000.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [3.0, {"$num": "-Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [2147483648.0, 1000.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [2147483648, 9007199254740992.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [42.0, {"$num": "-0"}], "error": "ZeroDivisionError: float modulo"}
+{"fn": "divide", "args": [{"$num": "Infinity"}, {"$num": "NaN"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [42.0, 9007199254740992.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [0, -2.5], "ok": {"$num": "-0"}}
+{"fn": "divide", "args": [10.0, 1.0], "ok": {"$float": "10.0"}}
+{"fn": "divide", "args": [42.0, {"$num": "-Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [1.0, 10.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [0, {"$num": "-Infinity"}], "ok": {"$num": "-0"}}
+{"fn": "divide", "args": [1.0, {"$num": "NaN"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [0.0, {"$num": "NaN"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [9007199254740992.0, 0.5], "ok": {"$float": "1.8014398509481984e+16"}}
+{"fn": "divide", "args": [-1, 9007199254740992.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [-2.5, 2.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [0.0, 1000000.0], "ok": {"$float": "0.0"}}
+{"fn": "divide", "args": [10.0, 3.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [9007199254740992.0, {"$num": "-0"}], "error": "ZeroDivisionError: float modulo"}
+{"fn": "divide", "args": [1000000.0, 2.0], "ok": {"$float": "500000.0"}}
+{"fn": "divide", "args": [{"$num": "-0"}, 9007199254740992.0], "ok": {"$num": "-0"}}
+{"fn": "divide", "args": [{"$num": "NaN"}, 0.5], "error": "AssertionError: "}
+{"fn": "divide", "args": [100, 3], "error": "AssertionError: "}
+{"fn": "divide", "args": [9007199254740992.0, 3.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [9007199254740992.0, 0.0], "error": "ZeroDivisionError: float modulo"}
+{"fn": "divide", "args": [100.0, 0.5], "ok": {"$float": "200.0"}}
+{"fn": "divide", "args": [2147483648, -1], "ok": -2147483648}
+{"fn": "divide", "args": [{"$num": "-0"}, 42.0], "ok": {"$num": "-0"}}
+{"fn": "divide", "args": [0.0, 100.0], "ok": {"$float": "0.0"}}
+{"fn": "divide", "args": [10.0, 1000.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [42, 100], "error": "AssertionError: "}
+{"fn": "divide", "args": [-2.5, 2147483648.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [0.5, 1000.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [42.0, 1000000.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [0, 10], "ok": 0}
+{"fn": "divide", "args": [1000000.0, {"$num": "-Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [0.0, 0.5], "ok": {"$float": "0.0"}}
+{"fn": "divide", "args": [-2.5, {"$num": "Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [1000, 2147483648], "error": "AssertionError: "}
+{"fn": "divide", "args": [2147483648.0, -2.5], "error": "AssertionError: "}
+{"fn": "divide", "args": [1000000.0, 0.0], "error": "ZeroDivisionError: float modulo"}
+{"fn": "divide", "args": [0.5, {"$num": "-Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [9007199254740992.0, 2], "ok": {"$float": "4503599627370496.0"}}
+{"fn": "divide", "args": [-2.5, 42.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [1000.0, {"$num": "Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [2.0, 1000000.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [-1, 1000000], "error": "AssertionError: "}
+{"fn": "divide", "args": [{"$num": "-0"}, 3.0], "ok": {"$num": "-0"}}
+{"fn": "divide", "args": [100.0, 10.0], "ok": {"$float": "10.0"}}
+{"fn": "divide", "args": [-1.0, 3.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [0, 1], "ok": 0}
+{"fn": "divide", "args": [{"$num": "-Infinity"}, 0.5], "error": "AssertionError: "}
+{"fn": "divide", "args": [10.0, 1000000.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [42.0, 2.0], "ok": {"$float": "21.0"}}
+{"fn": "divide", "args": [2147483648, 0.5], "ok": {"$float": "4294967296.0"}}
+{"fn": "divide", "args": [0.0, 3.0], "ok": {"$float": "0.0"}}
+{"fn": "divide", "args": [10.0, -2.5], "ok": {"$float": "-4.0"}}
+{"fn": "divide", "args": [2.0, {"$num": "-Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [{"$num": "-0"}, 10], "ok": {"$num": "-0"}}
+{"fn": "divide", "args": [0.5, {"$num": "NaN"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [9007199254740992.0, 10.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [1.0, 42.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [-2.5, -2.5], "ok": {"$float": "1.0"}}
+{"fn": "divide", "args": [3.0, -1.0], "ok": {"$float": "-3.0"}}
+{"fn": "divide", "args": [10.0, 2147483648.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [42.0, 3.0], "ok": {"$float": "14.0"}}
+{"fn": "divide", "args": [3, 0.5], "ok": {"$float": "6.0"}}
+{"fn": "divide", "args": [9007199254740992.0, 1000.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [2147483648.0, {"$num": "NaN"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [-2.5, 0.0], "error": "ZeroDivisionError: float modulo"}
+{"fn": "divide", "args": [3, {"$num": "NaN"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [0.0, {"$num": "-0"}], "error": "ZeroDivisionError: float modulo"}
+{"fn": "divide", "args": [{"$num": "-Infinity"}, {"$num": "-0"}], "error": "ZeroDivisionError: float modulo"}
+{"fn": "divide", "args": [{"$num": "NaN"}, 0.0], "error": "ZeroDivisionError: float modulo"}
+{"fn": "divide", "args": [42, 10], "error": "AssertionError: "}
+{"fn": "divide", "args": [-1.0, 100.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [3.0, 9007199254740992.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [1000.0, 1000000.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [1000, 0.5], "ok": {"$float": "2000.0"}}
+{"fn": "divide", "args": [{"$num": "-Infinity"}, 1000.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [{"$num": "-0"}, -2.5], "ok": {"$float": "0.0"}}
+{"fn": "divide", "args": [{"$num": "NaN"}, -2.5], "error": "AssertionError: "}
+{"fn": "divide", "args": [3, 100], "error": "AssertionError: "}
+{"fn": "divide", "args": [10.0, {"$num": "-0"}], "error": "ZeroDivisionError: float modulo"}
+{"fn": "divide", "args": [1000000.0, 100.0], "ok": {"$float": "10000.0"}}
+{"fn": "divide", "args": [3.0, 1000000.0], "error": "AssertionError: "}
+{"fn": "divide", "args": [-1, 10], "error": "AssertionError: "}
+{"fn": "divide", "args": [-7.5, {"$num": "-Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [0.1, {"$num": "-Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [0.30000000000000004, {"$num": "-Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [1e+21, {"$num": "-Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [1e-07, {"$num": "-Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [5e-324, {"$num": "-Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [1.7976931348623157e+308, {"$num": "-Infinity"}], "error": "AssertionError: "}
+{"fn": "divide", "args": [{"$num": "-0"}, {"$num": "-Infinity"}], "ok": {"$float": "0.0"}}
+{"fn": "divide", "args": [-2.5, -7.5], "error": "AssertionError: "}
+{"fn": "divide", "args": [-2.5, 0.1], "error": "AssertionError: "}
+{"fn": "divide", "args": [-2.5, 0.30000000000000004], "error": "AssertionError: "}
+{"fn": "divide", "args": [-2.5, 1e+21], "error": "AssertionError: "}
+{"fn": "divide", "args": [-2.5, 1e-07], "error": "AssertionError: "}
+{"fn": "divide", "args": [-2.5, 5e-324], "ok": {"$num": "-Infinity"}}
+{"fn": "divide", "args": [-2.5, 1.7976931348623157e+308], "error": "AssertionError: "}
