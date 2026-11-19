@@ -3,6 +3,7 @@
 use std::fs;
 use std::path::{Path, PathBuf};
 
+use nanovllm_engine::block::BlockManager;
 use nanovllm_engine::config::Config;
 use nanovllm_engine::pyval::{self, PyVal};
 use nanovllm_engine::sampling::SamplingParams;
@@ -170,4 +171,92 @@ fn sequence_matches_python() {
 
 fn py_i64(value: i64) -> PyVal {
     PyVal::Int(i128::from(value))
+}
+
+#[test]
+fn block_manager_matches_python() {
+    for case in load("block_manager.jsonl") {
+        let id = case["id"].as_str().unwrap().to_string();
+        if case["op"] == "compute_hash" {
+            let tokens: Vec<i64> = case["token_ids"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .map(|n| n.as_i64().unwrap())
+                .collect();
+            let prefix = pyval::decode(&case["prefix"]).as_i128().unwrap();
+            let hash = i128::from(BlockManager::compute_hash(&tokens, prefix));
+            check_result(&id, Ok(PyVal::Int(hash)), &case["result"]);
+            continue;
+        }
+        Sequence::reset_ids();
+        Sequence::set_block_size(case["block_size"].as_u64().unwrap());
+        let mut manager = BlockManager::new(
+            case["num_blocks"].as_i64().unwrap(),
+            case["block_size"].as_i64().unwrap(),
+        );
+        let mut seqs: Vec<(String, Sequence)> = Vec::new();
+        for (n, step_json) in case["steps"].as_array().unwrap().iter().enumerate() {
+            let step = pyval::decode(&step_json["step"]);
+            let op = step
+                .get("op")
+                .and_then(PyVal::as_string)
+                .unwrap_or("")
+                .to_string();
+            let label = format!("{id}#{n} {op}");
+            let actual = run_block_step(&mut manager, &mut seqs, &step, &op);
+            check_result(&label, actual, &step_json["result"]);
+            check_state(
+                &format!("{label} blocks"),
+                &manager.snapshot(),
+                &step_json["blocks"],
+            );
+            let got_seqs = PyVal::Map(
+                seqs.iter()
+                    .map(|(name, seq)| (name.clone(), seq.snapshot()))
+                    .collect(),
+            );
+            check_state(&format!("{label} seqs"), &got_seqs, &step_json["seqs"]);
+        }
+    }
+}
+
+fn run_block_step(
+    manager: &mut BlockManager,
+    seqs: &mut Vec<(String, Sequence)>,
+    step: &PyVal,
+    op: &str,
+) -> Result<PyVal, String> {
+    if op == "seq" {
+        let name = step
+            .get("name")
+            .and_then(PyVal::as_string)
+            .unwrap()
+            .to_string();
+        let tokens = i64s(step.get("token_ids").unwrap());
+        let seq = BlockManager::fresh_seq(&tokens)?;
+        seqs.push((name.clone(), seq));
+        return Ok(PyVal::Str(name));
+    }
+    let name = step.get("seq").and_then(PyVal::as_string).unwrap();
+    let seq = &mut seqs.iter_mut().find(|(n, _)| n == name).unwrap().1;
+    match op {
+        "can_allocate" => Ok(py_i64(manager.can_allocate(seq))),
+        "allocate" => manager
+            .allocate(seq, opt_i64(step.get("cached")).unwrap())
+            .map(|()| PyVal::Null),
+        "deallocate" => manager.deallocate(seq).map(|()| PyVal::Null),
+        "can_append" => Ok(PyVal::Bool(manager.can_append(seq))),
+        "may_append" => manager.may_append(seq).map(|()| PyVal::Null),
+        "append" => {
+            seq.append_token(opt_i64(step.get("token_id")).unwrap());
+            Ok(PyVal::Null)
+        }
+        "hash_blocks" => {
+            seq.num_cached_tokens = opt_i64(step.get("cached_tokens")).unwrap();
+            seq.num_scheduled_tokens = opt_i64(step.get("scheduled_tokens")).unwrap();
+            manager.hash_blocks(seq).map(|()| PyVal::Null)
+        }
+        other => panic!("unknown block op {other}"),
+    }
 }
