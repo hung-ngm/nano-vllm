@@ -7,6 +7,7 @@ use nanovllm_engine::block::BlockManager;
 use nanovllm_engine::config::Config;
 use nanovllm_engine::pyval::{self, PyVal};
 use nanovllm_engine::sampling::SamplingParams;
+use nanovllm_engine::scheduler::{self, Scheduler};
 use nanovllm_engine::sequence::{self, Sequence};
 use serde_json::Value;
 
@@ -259,4 +260,94 @@ fn run_block_step(
         }
         other => panic!("unknown block op {other}"),
     }
+}
+
+#[test]
+fn scheduler_matches_python() {
+    let root = repo();
+    for case in load("scheduler.jsonl") {
+        let id = case["id"].as_str().unwrap().to_string();
+        Sequence::reset_ids();
+        let config = pyval::decode(&case["config"]);
+        let mut sched = Scheduler::from_fixture(&root, &config)
+            .unwrap_or_else(|err| panic!("{id} config {err}"));
+        let mut names: Vec<(String, u64)> = Vec::new();
+        for (n, step_json) in case["steps"].as_array().unwrap().iter().enumerate() {
+            let step = pyval::decode(&step_json["step"]);
+            let op = step
+                .get("op")
+                .and_then(PyVal::as_string)
+                .unwrap()
+                .to_string();
+            let label = format!("{id}#{n} {op}");
+            let actual = match op.as_str() {
+                "add" => {
+                    let tokens = i64s(step.get("token_ids").unwrap());
+                    match scheduler::sampling_from(&step)
+                        .and_then(|sampling| Sequence::try_new(&tokens, sampling))
+                    {
+                        Ok(seq) => {
+                            let seq_id = seq.seq_id;
+                            let name = step
+                                .get("name")
+                                .and_then(PyVal::as_string)
+                                .unwrap()
+                                .to_string();
+                            names.push((name.clone(), seq_id));
+                            sched.add(seq);
+                            Ok(PyVal::Str(name))
+                        }
+                        Err(err) => Err(err),
+                    }
+                }
+                "schedule" => sched.schedule().map(|(ids, prefill, counts)| {
+                    PyVal::Map(vec![
+                        (
+                            "seq_ids".into(),
+                            PyVal::List(
+                                ids.into_iter()
+                                    .map(|id| PyVal::Int(i128::from(id)))
+                                    .collect(),
+                            ),
+                        ),
+                        ("is_prefill".into(), PyVal::Bool(prefill)),
+                        (
+                            "scheduled".into(),
+                            PyVal::List(
+                                counts
+                                    .into_iter()
+                                    .map(|n| PyVal::Int(i128::from(n)))
+                                    .collect(),
+                            ),
+                        ),
+                    ])
+                }),
+                "post_ids" => {
+                    let who = step.get("names").map(i64_names).unwrap_or_default();
+                    let ids: Vec<u64> = who
+                        .iter()
+                        .map(|name| names.iter().find(|(n, _)| n == name).unwrap().1)
+                        .collect();
+                    let tokens = i64s(step.get("token_ids").unwrap());
+                    let is_prefill = matches!(step.get("is_prefill"), Some(PyVal::Bool(true)));
+                    sched
+                        .postprocess(&ids, &tokens, is_prefill)
+                        .map(|()| PyVal::Null)
+                }
+                other => panic!("unknown scheduler op {other}"),
+            };
+            check_result(&label, actual, &step_json["result"]);
+            check_state(&label, &sched.snapshot(), &step_json["state"]);
+        }
+    }
+}
+
+fn i64_names(value: &PyVal) -> Vec<String> {
+    let PyVal::List(items) = value else {
+        return Vec::new();
+    };
+    items
+        .iter()
+        .filter_map(|v| v.as_string().map(str::to_string))
+        .collect()
 }
