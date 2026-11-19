@@ -1,0 +1,15 @@
+{"id":"default","args":{},"result":{"ok":{"temperature":{"float":"1.0"},"max_tokens":{"int":"64"},"ignore_eos":{"bool":false}}}}
+{"id":"hot","args":{"temperature":{"float":"0.2"},"max_tokens":{"int":"8"},"ignore_eos":{"bool":true}},"result":{"ok":{"temperature":{"float":"0.2"},"max_tokens":{"int":"8"},"ignore_eos":{"bool":true}}}}
+{"id":"boundary","args":{"temperature":{"float":"1e-09"},"max_tokens":{"int":"1"},"ignore_eos":{"bool":false}},"result":{"ok":{"temperature":{"float":"1e-09"},"max_tokens":{"int":"1"},"ignore_eos":{"bool":false}}}}
+{"id":"just_over","args":{"temperature":{"float":"1.00000001e-10"},"max_tokens":{"int":"0"},"ignore_eos":{"bool":false}},"result":{"ok":{"temperature":{"float":"1.00000001e-10"},"max_tokens":{"int":"0"},"ignore_eos":{"bool":false}}}}
+{"id":"greedy","args":{"temperature":{"float":"1e-10"}},"result":{"error":"AssertionError: greedy sampling is not permitted"}}
+{"id":"zero","args":{"temperature":{"float":"0.0"}},"result":{"error":"AssertionError: greedy sampling is not permitted"}}
+{"id":"negative","args":{"temperature":{"float":"-1.0"},"max_tokens":{"int":"4"}},"result":{"error":"AssertionError: greedy sampling is not permitted"}}
+{"id":"nan","args":{"temperature":{"float":"nan"}},"result":{"error":"AssertionError: greedy sampling is not permitted"}}
+{"id":"pos_inf","args":{"temperature":{"float":"inf"},"max_tokens":{"int":"2"}},"result":{"ok":{"temperature":{"float":"inf"},"max_tokens":{"int":"2"},"ignore_eos":{"bool":false}}}}
+{"id":"neg_inf","args":{"temperature":{"float":"-inf"}},"result":{"error":"AssertionError: greedy sampling is not permitted"}}
+{"id":"neg_zero","args":{"temperature":{"float":"-0.0"}},"result":{"error":"AssertionError: greedy sampling is not permitted"}}
+{"id":"big_tokens","args":{"max_tokens":{"int":"1099511627776"}},"result":{"ok":{"temperature":{"float":"1.0"},"max_tokens":{"int":"1099511627776"},"ignore_eos":{"bool":false}}}}
+{"id":"neg_tokens","args":{"max_tokens":{"int":"-3"}},"result":{"ok":{"temperature":{"float":"1.0"},"max_tokens":{"int":"-3"},"ignore_eos":{"bool":false}}}}
+{"id":"bool_temp","args":{"temperature":{"bool":true}},"result":{"ok":{"temperature":{"bool":true},"max_tokens":{"int":"64"},"ignore_eos":{"bool":false}}}}
+{"id":"str_temp","args":{"temperature":{"str":"hot"}},"result":{"error":"TypeError: '>' not supported between instances of 'str' and 'float'"}}
